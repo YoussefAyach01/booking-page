@@ -6,7 +6,7 @@ Stack: Next.js 16 (App Router) + Tailwind 4 + TypeScript strict + SQLite via the
 
 ## Run
 
-Requires Node 22.18+ (developed on Node 25).
+Requires Node 25+. Pinned higher than the Next.js minimum because Casablanca-local time depends on the host's bundled ICU tzdata, and older Node builds carry stale Morocco DST rules (CI, local dev, and deploy should all run the same major to avoid disagreeing on salon-local time).
 
 ```bash
 npm install
