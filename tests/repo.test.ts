@@ -6,7 +6,7 @@ import { checkAdminPassword, createAdminToken, getSessionSecret, verifyAdminToke
 import { normalizeMoroccanPhone } from '../src/lib/phone.ts';
 import { customerMessage, salonConfirmMessage } from '../src/lib/i18n.ts';
 
-// Monday 2026-09-21 at 08:00 Casablanca (UTC+1 in September) = 07:00Z
+// Monday 2026-09-21 at 07:00 Casablanca (Morocco moved to permanent GMT/UTC+0 on 2026-09-20, no more seasonal offset) = 07:00Z
 const NOW = new Date('2026-09-21T07:00:00Z');
 const DAY = '2026-09-22'; // Tuesday, default hours 09-13 and 15-19
 
@@ -116,7 +116,7 @@ describe('customer cancellation by token', () => {
     if (!r.ok) throw new Error('setup');
     expect(repo.cancelByToken(db, 'a'.repeat(32), NOW)).toEqual({ ok: false, error: 'not_found' });
     expect(repo.cancelByToken(db, "x' OR '1'='1", NOW)).toEqual({ ok: false, error: 'not_found' });
-    const afterStart = new Date('2026-09-22T09:30:00Z'); // 10:30 local
+    const afterStart = new Date('2026-09-22T10:30:00Z'); // 10:30 local (Morocco is permanent GMT/UTC+0 from 2026-09-20 on)
     expect(repo.cancelByToken(db, r.value.token, afterStart)).toEqual({
       ok: false,
       error: 'already_started',

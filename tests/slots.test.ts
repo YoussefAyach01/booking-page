@@ -51,8 +51,9 @@ describe('time helpers', () => {
     expect(daysBetween('2026-09-20', '2026-10-20')).toBe(30);
   });
   it('reads the current date and time in Casablanca, not UTC', () => {
-    // 23:30 UTC on 30 Sep is already 1 Oct in Morocco (UTC+1 outside Ramadan)
-    expect(nowInSalon(new Date('2026-09-30T23:30:00Z'))).toEqual({ date: '2026-10-01', minutes: 30 });
+    // Morocco moved to permanent GMT/UTC+0 on 2026-09-20 (dropped its seasonal +1 offset entirely),
+    // so by late Sept 2026 Casablanca local time is just UTC with no shift.
+    expect(nowInSalon(new Date('2026-09-30T23:30:00Z'))).toEqual({ date: '2026-09-30', minutes: 1410 });
   });
 });
 
